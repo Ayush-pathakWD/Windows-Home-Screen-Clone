@@ -73,7 +73,7 @@ body{
     z-index: 10;
 
     transform-origin: top left;
-    pointer-events: none;
+    pointer-events: auto;
     opacity: 0;
 }
 hr{

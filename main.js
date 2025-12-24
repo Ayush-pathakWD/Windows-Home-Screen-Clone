@@ -4,17 +4,21 @@ let contextMenu = document.querySelector("#context-menu");
 function ShowContextMenu(dets){
     let menu = contextMenu;
 
-    let rec = menu.getBoundingClientRect();
+    menu.classList.remove("open");
+    
     let x = dets.clientX;
     let y = dets.clientY;
+    menu.style.top = y + "px";
+    menu.style.left = x + "px";
+    menu.offsetWidth;
+
+    let rec = menu.getBoundingClientRect();
     if(x+rec.width > window.innerWidth - 10){
         x = x - rec.width;
     }else if(y+rec.height > window.innerHeight - 50){
         y = y - rec.height;
     }
 
-    menu.classList.remove("open");
-    menu.offsetWidth;
     menu.style.top = y + "px";
     menu.style.left = x + "px";
     contextMenu.classList.add("open");
@@ -25,17 +29,15 @@ function hideContextMenu() {
 
 window.addEventListener("contextmenu", function(dets){
     if(!(window.innerHeight === screen.height)) return;
-    dets.preventDefault();
     if (dets.target.closest(".folder") || dets.target.closest("#taskbar") || dets.target.closest("#context-menu")){return;}
-
+    
+    dets.preventDefault();
     ShowContextMenu(dets);
 })
 window.addEventListener("keydown", function(dets){
-    if(dets.key === "Escape") contextMenu.style.display = "none";
+    if(dets.key === "Escape") hideContextMenu();
 })
-window.addEventListener("click",()=>{
-    hideContextMenu();
-})
+window.addEventListener("click",()=> hideContextMenu())
 
 
 // Files About 
